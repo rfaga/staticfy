@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ -z "$1" ]; then
+    echo "Wrong inputs, please provide './staticfy www.domain.com folder_path'"
+    exit 1
+fi
+FOLDER=$2
+DOMAIN=$1
+wget --recursive --convert-links --domains $DOMAIN --no-parent --page-requisites --html-extension --no-clobber --restrict-file-names=unix $DOMAIN/$FOLDER/ --directory-prefix=output
+cd output/$DOMAIN/$FOLDER
+for i in `find -type d`; do touch $i/index.html; done;
